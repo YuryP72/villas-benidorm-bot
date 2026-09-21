@@ -180,12 +180,47 @@ async def notify_admin(lead: dict):
     v = VILLAS.get(villa_id, VILLAS["villa01"])
     is_booking = "booking_date" in lead and lead.get("booking_date")
     if is_booking:
-        text = f"{t['book_admin']} {v['name'][lang]} {v['price']}\n\nVilla: {villa_id} | {v['price']}\nLang: {lead.get('lang')}\nName: {lead.get('name')} | Phone: {lead.get('phone')}\nDate: {lead.get('booking_date')}\nMsg: {lead.get('message')}\nID: {lead.get('session_id')}"
+        text = f"{t['book_admin']} {v['name'][lang]} {v['price']}
+
+Villa: {villa_id} | {v['price']}
+Lang: {lead.get('lang')}
+Name: {lead.get('name')} | Phone: {lead.get('phone')}
+Date: {lead.get('booking_date')}
+Msg: {lead.get('message')}
+ID: {lead.get('session_id')}"
     else:
-        text = f"{t['new_lead']} {v['name'][lang]} {v['price']}\n\nVilla: {villa_id}\nLang: {lead.get('lang')}\nName: {lead.get('name')} | Phone: {lead.get('phone')}\nMsg: {lead.get('message')}\nID: {lead.get('session_id')}"
-    admin_id = os.getenv("ADMIN_CHAT_ID")
-    if not admin_id:
+        text = f"{t['new_lead']} {v['name'][lang]} {v['price']}
+
+Villa: {villa_id}
+Lang: {lead.get('lang')}
+Name: {lead.get('name')} | Phone: {lead.get('phone')}
+Msg: {lead.get('message')}
+ID: {lead.get('session_id')}"
+    admin_id_raw = os.getenv("ADMIN_CHAT_ID")
+    if not admin_id_raw:
+        logging.error("ADMIN_CHAT_ID not set!")
         return None
+    try:
+        admin_id = int(str(admin_id_raw).strip())
+    except:
+        admin_id = admin_id_raw
+    logging.info(f"Attempting to notify admin {admin_id} with lead {lead.get('session_id')}")
+    try:
+        msg = await bot.send_message(chat_id=admin_id, text=text, parse_mode="Markdown")
+        SESSIONS[msg.message_id] = lead
+        SESSIONS[lead.get('session_id')] = lead
+        logging.info(f"Admin notified successfully, msg_id {msg.message_id}")
+        return msg.message_id
+    except Exception as e:
+        logging.error(f"notify_admin FAILED for {admin_id}: {e} | lead: {lead}")
+        try:
+            msg = await bot.send_message(chat_id=admin_id, text=text)
+            SESSIONS[msg.message_id] = lead
+            logging.info(f"Admin notified with plain text fallback")
+            return msg.message_id
+        except Exception as e2:
+            logging.error(f"notify_admin fallback FAILED: {e2}")
+            return None
     try:
         msg = await bot.send_message(chat_id=admin_id, text=text, parse_mode="Markdown")
         SESSIONS[msg.message_id] = lead
