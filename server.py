@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from bot import bot, handle_webhook_update, notify_admin, VILLAS, TEXTS
 
-app = FastAPI(title="Villas Benidorm - Exact Prices from site v4")
+app = FastAPI(title="Villas Benidorm - Anti-hang v5")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 class ContactRequest(BaseModel):
@@ -27,27 +27,17 @@ STORAGE.mkdir(parents=True, exist_ok=True)
 
 @app.get("/")
 async def root():
-    return {"status": "ok", "version": "v4-exact-villas-benidorm.com", "villas": list(VILLAS.values())}
+    return {"status": "ok", "version": "v5-no-hang-exact-prices", "villas": list(VILLAS.values())}
 
 @app.get("/api/villas")
 async def get_villas():
     return {"villas": list(VILLAS.values())}
 
-@app.get("/api/villa/{villa_id}/gallery")
-async def gallery(villa_id: str):
-    v = VILLAS.get(villa_id, VILLAS["villa01"])
-    return {"gallery": v["gallery"], "main": v["main"]}
-
-@app.get("/api/villa/{villa_id}/plans")
-async def plans(villa_id: str):
-    v = VILLAS.get(villa_id, VILLAS["villa01"])
-    return v["plans"]
-
 @app.get("/api/villa/{villa_id}/info")
 async def info(villa_id: str, lang: str = "en"):
     l = lang if lang in ["en","es","ru"] else "en"
     v = VILLAS.get(villa_id, VILLAS["villa01"])
-    return {"id": villa_id, "name": v["name"][l], "price": v["price"], "built": v["built"], "beds": v["beds"], "delivery": v["delivery"], "gallery": v["gallery"], "plans": v["plans"], "texts": TEXTS[l]}
+    return {"id": villa_id, "name": v["name"][l], "price": v["price"], "built": v["built"], "beds": v["beds"], "delivery": v["delivery"]}
 
 @app.post("/api/contact")
 async def contact(req: ContactRequest, background_tasks: BackgroundTasks):
@@ -76,12 +66,13 @@ async def get_chat(session_id: str):
         return {"messages": []}
 
 @app.post("/webhook")
-async def webhook(request: Request):
+async def webhook(request: Request, background_tasks: BackgroundTasks):
     secret = request.headers.get("X-Telegram-Bot-Api-Secret-Token")
     if secret and secret != os.getenv("WEBHOOK_SECRET"):
         raise HTTPException(403, "bad secret")
     data = await request.json()
-    await handle_webhook_update(data)
+    # FAST ACK to avoid Telegram timeout (critical for Render free spin-up 50s)
+    background_tasks.add_task(handle_webhook_update, data)
     return {"ok": True}
 
 @app.on_event("startup")
@@ -90,6 +81,6 @@ async def on_startup():
     if url:
         try:
             await bot.set_webhook(url=f"{url.rstrip('/')}/webhook", secret_token=os.getenv("WEBHOOK_SECRET"))
-            print(f"Webhook set to {url}/webhook")
+            print(f"Webhook set to {url}/webhook - v5 no-hang")
         except Exception as e:
             print(f"Webhook error: {e}")
