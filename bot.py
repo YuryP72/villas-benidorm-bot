@@ -149,16 +149,11 @@ def lang_kb():
         [InlineKeyboardButton(text="🇷🇺 Русский", callback_data="lang_ru")],
     ])
 
-def villas_kb(lang: str, current_villa_id: str = None):
+def villas_kb(lang: str):
     rows = []
     for vid in ["villa01", "villa02", "villa03"]:
         v = VILLAS[vid]
         rows.append([InlineKeyboardButton(text=f"{v['name'][lang]} — {v['price']} — {v['built']} • {v['beds']}", callback_data=f"villa_{vid}")])
-    # Back button if we came from a villa menu
-    if current_villa_id and current_villa_id in VILLAS:
-        v = VILLAS[current_villa_id]
-        rows.append([InlineKeyboardButton(text=f"{TEXTS[lang]['back']} to {v['name'][lang]}", callback_data=f"villa_{current_villa_id}")])
-    # Language button
     rows.append([InlineKeyboardButton(text=TEXTS[lang]["btn_lang"], callback_data="change_lang")])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
@@ -233,9 +228,8 @@ async def cb_change_lang(cb: types.CallbackQuery):
 async def cb_all_villas(cb: types.CallbackQuery):
     await cb.answer()
     lang = get_lang(cb.from_user.id)
-    current_vid = get_villa(cb.from_user.id)
     t = TEXTS[lang]
-    await cb.message.answer(t["villas_list"] + "\n\n" + t["choose_villa"], reply_markup=villas_kb(lang, current_vid), parse_mode="Markdown")
+    await cb.message.answer(t["villas_list"] + "\n\n" + t["choose_villa"], reply_markup=villas_kb(lang), parse_mode="Markdown")
 
 @dp.callback_query(F.data.startswith("villa_"))
 async def cb_villa(cb: types.CallbackQuery):
