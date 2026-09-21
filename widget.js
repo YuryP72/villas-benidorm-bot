@@ -1,5 +1,6 @@
+
 (function(){
-  const API = document.currentScript.getAttribute('data-api') || 'https://YOUR-APP.onrender.com';
+  const API = document.currentScript.getAttribute('data-api') || 'https://villas-benidorm-bot.onrender.com';
   const VILLA = {
     main: 'https://villas-benidorm.com/renders/residence.jpg',
     gallery: [
@@ -16,145 +17,22 @@
     }
   };
   const i18n = {
-    ru: {btn:'Виллы Benidorm', title:'Резиденция Benidorm', loc:'📍 Локация', plans:'🗺️ Планировки', price:'💶 Цены', book:'📅 Просмотр', ask:'💬 Вопрос', send:'Отправить', name:'Имя', phone:'Телефон', msg:'Сообщение'},
-    en: {btn:'Villas Benidorm', title:'Benidorm Residence', loc:'📍 Location', plans:'🗺️ Floor Plans', price:'💶 Prices', book:'📅 Viewing', ask:'💬 Ask', send:'Send', name:'Name', phone:'Phone', msg:'Message'},
-    es: {btn:'Villas Benidorm', title:'Residencia Benidorm', loc:'📍 Ubicación', plans:'🗺️ Planos', price:'💶 Precios', book:'📅 Visita', ask:'💬 Pregunta', send:'Enviar', name:'Nombre', phone:'Teléfono', msg:'Mensaje'}
+    en: {btn:'Villas Benidorm', title:'Residence — Premium Villa', subtitle:'Costa Blanca • 465m² • Sea view', price:'💶 Price', loc:'📍 Location', plans:'🗺️ Plans', gallery:'🖼️ Gallery', book:'📅 Book Viewing', price_h:'Price & Specs', price_text:'<b>€2,450,000</b> (VAT not incl.)<br>465 m² built / 342 m² useful<br>1,200 m² plot • 4 bed • 5 bath<br>Infinity pool 14m • Smart Home Grenton<br>Underfloor heating • A+ energy • Triple glazing<br>Panoramic windows • 2 parkings<br>Delivery Q4 2026', loc_h:'Location', loc_text:'Finestrat — Benidorm, Costa Blanca<br>Hilltop, panoramic Mediterranean & skyline views<br>• 1.2 km to Levante Beach<br>• 3 min to Finestrat center<br>• 5 min to Terra Mítica<br>• 45 min to Alicante Airport (ALC)<br>Quiet residential Las Villas • SE orientation', book_h:'Book Private Viewing', name:'Full name', phone:'Phone / WhatsApp', date:'Preferred date & time', msg:'Message / wishes', send:'Send Request', sent:'✅ Sent! Manager will contact you in 30 min.'},
+    es: {btn:'Villas Benidorm', title:'Residence — Villa Premium', subtitle:'Costa Blanca • 465m² • Vistas al mar', price:'💶 Precio', loc:'📍 Ubicación', plans:'🗺️ Planos', gallery:'🖼️ Galería', book:'📅 Reservar Visita', price_h:'Precio y Detalles', price_text:'<b>2.450.000 €</b> (IVA no incl.)<br>465 m² construidos / 342 m² útiles<br>Parcela 1.200 m² • 4 dorm • 5 baños<br>Piscina infinita 14m • Casa inteligente Grenton<br>Suelo radiante • Energía A+ • Triple vidrio<br>Ventanales panorámicos • 2 parkings<br>Entrega Q4 2026', loc_h:'Ubicación', loc_text:'Finestrat — Benidorm, Costa Blanca<br>En colina, vistas panorámicas al Mediterráneo y skyline<br>• 1,2 km a Playa Levante<br>• 3 min a centro Finestrat<br>• 5 min a Terra Mítica<br>• 45 min a Aeropuerto Alicante (ALC)<br>Residencial tranquilo Las Villas • Orientación SE', book_h:'Reservar Visita Privada', name:'Nombre completo', phone:'Teléfono / WhatsApp', date:'Fecha y hora preferida', msg:'Mensaje / preferencias', send:'Enviar Solicitud', sent:'✅ ¡Enviado! El gestor te contactará en 30 min.'},
+    ru: {btn:'Villas Benidorm', title:'Residence — Премиум Вилла', subtitle:'Коста-Бланка • 465м² • Вид на море', price:'💶 Цена', loc:'📍 Локация', plans:'🗺️ Планы', gallery:'🖼️ Галерея', book:'📅 Запись на просмотр', price_h:'Цена и характеристики', price_text:'<b>€2 450 000</b> (без НДС)<br>465 м² построено / 342 м² полезной<br>Участок 1 200 м² • 4 спальни • 5 ванных<br>Бассейн инфинити 14м • Умный дом Grenton<br>Теплый пол • Энерго A+ • Тройной стеклопакет<br>Панорамные окна • 2 паркинга<br>Сдача Q4 2026', loc_h:'Расположение', loc_text:'Финестрат — Бенидорм, Коста-Бланка<br>На холме, панорамный вид на Средиземное море и skyline<br>• 1,2 км до пляжа Леванте<br>• 3 мин до центра Финестрат<br>• 5 мин до Terra Mítica<br>• 45 мин до аэропорта Аликанте (ALC)<br>Тихий комплекс Las Villas • Ориентация ЮВ', book_h:'Запись на приватный просмотр', name:'Полное имя', phone:'Телефон / WhatsApp', date:'Удобная дата и время', msg:'Сообщение / пожелания', send:'Отправить заявку', sent:'✅ Отправлено! Менеджер свяжется за 30 мин.'}
   };
-  const lang = (navigator.language||'ru').slice(0,2);
-  const t = i18n[lang] || i18n.ru;
-
-  const css = `
-  .vb-fab{position:fixed;right:20px;bottom:20px;z-index:99999;background:#0f172a;color:#fff;border:1px solid #d4af37;border-radius:999px;padding:14px 22px;font-family:Inter,sans-serif;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.4);font-weight:700;display:flex;gap:8px;align-items:center}
-  .vb-modal{position:fixed;inset:0;z-index:100000;display:none;background:rgba(0,0,0,.55);backdrop-filter:blur(6px)}
-  .vb-modal.open{display:flex;align-items:center;justify-content:center;padding:16px}
-  .vb-card{width:100%;max-width:440px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);font-family:Inter,sans-serif;max-height:92vh;display:flex;flex-direction:column}
-  .vb-hero{position:relative;height:260px;background:#000}
-  .vb-hero img{width:100%;height:100%;object-fit:cover}
-  .vb-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.7), transparent 60%);display:flex;align-items:flex-end;padding:16px;color:#fff}
-  .vb-tabs{display:flex;gap:6px;padding:10px 12px;overflow:auto;background:#f8fafc;border-bottom:1px solid #e2e8f0}
-  .vb-tab{white-space:nowrap;padding:8px 12px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;font-size:12px;font-weight:600;cursor:pointer}
-  .vb-tab.active{background:#0f172a;color:#fff;border-color:#0f172a}
-  .vb-content{padding:14px;overflow:auto}
-  .vb-gallery{display:flex;gap:8px;overflow:auto;padding-bottom:6px}
-  .vb-gallery img{width:72px;height:72px;border-radius:12px;object-fit:cover;cursor:pointer;border:2px solid transparent}
-  .vb-gallery img.active{border-color:#d4af37}
-  .vb-plan-img{width:100%;border-radius:16px;border:1px solid #e2e8f0}
-  .vb-input{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:10px;margin:6px 0;font-size:14px;box-sizing:border-box}
-  .vb-send{width:100%;background:#0f172a;color:#fff;padding:12px;border-radius:12px;border:0;font-weight:700;cursor:pointer;margin-top:8px}
-  `;
+  let langCode = (navigator.language||'en').slice(0,2);
+  if(!['en','es','ru'].includes(langCode)) langCode='en';
+  const css = `.vb-fab{position:fixed;right:20px;bottom:20px;z-index:99999;background:#0f172a;color:#fff;border:1px solid #d4af37;border-radius:999px;padding:14px 22px;font-family:Inter,sans-serif;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.4);font-weight:700;display:flex;gap:8px;align-items:center}.vb-modal{position:fixed;inset:0;z-index:100000;display:none;background:rgba(0,0,0,.55);backdrop-filter:blur(6px)}.vb-modal.open{display:flex;align-items:center;justify-content:center;padding:16px}.vb-card{width:100%;max-width:460px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);font-family:Inter,sans-serif;max-height:92vh;display:flex;flex-direction:column}.vb-hero{position:relative;height:260px;background:#000}.vb-hero img{width:100%;height:100%;object-fit:cover}.vb-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.75), transparent 60%);display:flex;align-items:flex-end;padding:16px;color:#fff}.vb-lang{position:absolute;top:12px;left:12px;display:flex;gap:4px;background:rgba(0,0,0,.55);padding:4px;border-radius:999px}.vb-lang button{background:transparent;border:0;color:#fff;font-size:11px;padding:4px 8px;border-radius:999px;cursor:pointer}.vb-lang button.active{background:#fff;color:#000;font-weight:700}.vb-tabs{display:flex;gap:6px;padding:10px 12px;overflow:auto;background:#f8fafc;border-bottom:1px solid #e2e8f0}.vb-tab{white-space:nowrap;padding:8px 12px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;font-size:12px;font-weight:600;cursor:pointer}.vb-tab.active{background:#0f172a;color:#fff;border-color:#0f172a}.vb-content{padding:14px;overflow:auto}.vb-gallery{display:flex;gap:8px;overflow:auto;padding-bottom:6px}.vb-gallery img{width:72px;height:72px;border-radius:12px;object-fit:cover;cursor:pointer;border:2px solid transparent}.vb-gallery img.active{border-color:#d4af37}.vb-plan-img{width:100%;border-radius:16px;border:1px solid #e2e8f0}.vb-input{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:10px;margin:6px 0;font-size:14px;box-sizing:border-box}.vb-send{width:100%;background:#0f172a;color:#fff;padding:12px;border-radius:12px;border:0;font-weight:700;cursor:pointer;margin-top:8px}.vb-h{font-weight:800;font-size:15px;margin-bottom:8px}.vb-txt{font-size:13px;line-height:1.5;color:#334155}`;
   const style=document.createElement('style'); style.textContent=css; document.head.appendChild(style);
-
+  let t=i18n[langCode];
   const fab=document.createElement('div'); fab.className='vb-fab'; fab.innerHTML=`<span>💎</span> ${t.btn}`; document.body.appendChild(fab);
   const modal=document.createElement('div'); modal.className='vb-modal';
-  modal.innerHTML=`
-    <div class="vb-card">
-      <div class="vb-hero">
-        <img id="vb-hero-img" src="${VILLA.main}" alt="residence">
-        <div class="vb-hero-overlay"><div><div style="font-size:18px;font-weight:800">${t.title}</div><div style="font-size:12px;opacity:.9">villas-benidorm.com • 3 уровня • 5 рендеров</div></div></div>
-        <span id="vb-close" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,.6);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer">✕</span>
-      </div>
-      <div class="vb-tabs">
-        <div class="vb-tab active" data-tab="gallery">🖼️ Фото</div>
-        <div class="vb-tab" data-tab="plans">${t.plans}</div>
-        <div class="vb-tab" data-tab="location">${t.loc}</div>
-        <div class="vb-tab" data-tab="price">${t.price}</div>
-        <div class="vb-tab" data-tab="book">${t.book}</div>
-      </div>
-      <div class="vb-content" id="vb-content"></div>
-    </div>
-  `;
+  modal.innerHTML=`<div class="vb-card"><div class="vb-hero"><img id="vb-hero-img" src="${VILLA.main}" alt="residence"><div class="vb-lang" id="vb-lang-switch"><button data-l="en" class="${langCode==='en'?'active':''}">EN</button><button data-l="es" class="${langCode==='es'?'active':''}">ES</button><button data-l="ru" class="${langCode==='ru'?'active':''}">RU</button></div><div class="vb-hero-overlay"><div><div style="font-size:18px;font-weight:800" id="vb-title">${t.title}</div><div style="font-size:12px;opacity:.9" id="vb-sub">${t.subtitle}</div></div></div><span id="vb-close" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,.6);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer">✕</span></div><div class="vb-tabs" id="vb-tabs"></div><div class="vb-content" id="vb-content"></div></div>`;
   document.body.appendChild(modal);
-
-  const $ = s=>modal.querySelector(s);
-  const contentEl = $('#vb-content');
-  let activeTab='gallery';
-  let activeGalleryIdx=0;
-
-  function render(){
-    if(activeTab==='gallery'){
-      contentEl.innerHTML=`
-        <div class="vb-gallery" id="vb-thumbs">
-          ${VILLA.gallery.map((u,i)=>`<img src="${u}" data-i="${i}" class="${i===activeGalleryIdx?'active':''}" loading="lazy">`).join('')}
-        </div>
-        <div style="font-size:11px;color:#64748b;margin:8px 0">Источник: villas-benidorm.com/renders/* • ${activeGalleryIdx+1}/5</div>
-        <input class="vb-input" id="vb-name" placeholder="${t.name}">
-        <input class="vb-input" id="vb-phone" placeholder="${t.phone}">
-        <textarea class="vb-input" id="vb-msg" rows="2" placeholder="${t.msg}"></textarea>
-        <button class="vb-send" id="vb-send-btn">${t.send} в Telegram</button>
-        <div id="vb-status" style="font-size:12px;color:#16a34a;margin-top:8px;display:none"></div>
-      `;
-      contentEl.querySelectorAll('#vb-thumbs img').forEach(img=>{
-        img.onclick=()=>{activeGalleryIdx=parseInt(img.dataset.i); $('#vb-hero-img').src=VILLA.gallery[activeGalleryIdx]; render();};
-      });
-      bindSend();
-    } else if(activeTab==='plans'){
-      contentEl.innerHTML=`
-        <div style="display:flex;gap:6px;margin-bottom:10px">
-          <button class="vb-tab active" data-plan="basement">Basement -1</button>
-          <button class="vb-tab" data-plan="ground">Ground</button>
-          <button class="vb-tab" data-plan="first">First</button>
-        </div>
-        <img class="vb-plan-img" id="vb-plan-img" src="${VILLA.plans.basement}" alt="plan">
-        <div style="font-size:11px;color:#64748b;margin-top:8px">Прямо с сайта: villas-benidorm.com/renders/plans/*.png — клик для увеличения</div>
-      `;
-      let current='basement';
-      contentEl.querySelectorAll('[data-plan]').forEach(b=>{
-        b.onclick=()=>{
-          contentEl.querySelectorAll('[data-plan]').forEach(x=>x.classList.remove('active'));
-          b.classList.add('active');
-          current=b.dataset.plan;
-          $('#vb-plan-img').src=VILLA.plans[current];
-        };
-      });
-      $('#vb-plan-img').onclick=()=>window.open($('#vb-plan-img').src, '_blank');
-    } else if(activeTab==='location'){
-      contentEl.innerHTML=`<div style="font-size:14px;line-height:1.5">📍 Finestrat / Benidorm, Costa Blanca<br>Вид на море и skyline Benidorm<br><br><iframe width="100%" height="220" style="border:0;border-radius:12px" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.16%2C38.54%2C-0.10%2C38.58&layer=mapnik&marker=38.56%2C-0.13"></iframe><div style="font-size:11px;color:#64748b;margin-top:6px">Карта — данные с сайта, уточняется</div></div>`;
-    } else if(activeTab==='price'){
-      contentEl.innerHTML=`<div style="font-size:14px"><b>Цена: по запросу</b><br>Данные подтягиваются с villas-benidorm.com<br><br><button class="vb-send" onclick="document.querySelector('[data-tab=book]').click()">Запросить цену</button></div>`;
-    } else if(activeTab==='book'){
-      contentEl.innerHTML=`
-        <input class="vb-input" id="vb-name" placeholder="${t.name}">
-        <input class="vb-input" id="vb-phone" placeholder="${t.phone}">
-        <input class="vb-input" type="date" id="vb-date">
-        <textarea class="vb-input" id="vb-msg" rows="3" placeholder="Когда удобно посмотреть?"></textarea>
-        <button class="vb-send" id="vb-send-btn">${t.book}</button>
-        <div id="vb-status" style="font-size:12px;color:#16a34a;margin-top:8px;display:none"></div>
-      `;
-      bindSend();
-    }
-  }
-
-  function bindSend(){
-    const btn = document.getElementById('vb-send-btn');
-    if(!btn) return;
-    btn.onclick = async ()=>{
-      const payload = {
-        name: document.getElementById('vb-name')?.value || 'Guest',
-        phone: document.getElementById('vb-phone')?.value || '',
-        message: document.getElementById('vb-msg')?.value || `Интерес: ${activeTab} ${VILLA.main}`,
-        lang: lang,
-        villa_id: 'residence',
-        page_url: location.href,
-        session_id: localStorage.getItem('villas_session') || Math.random().toString(36).slice(2,8)
-      };
-      localStorage.setItem('villas_session', payload.session_id);
-      try{
-        await fetch(`${API}/api/contact`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
-        const st=document.getElementById('vb-status'); st.style.display='block'; st.textContent='✅ Отправлено! Ответ придет сюда и в Telegram.';
-      }catch(e){alert('Ошибка, попробуйте еще раз');}
-    };
-  }
-
-  modal.querySelectorAll('.vb-tabs .vb-tab').forEach(tab=>{
-    tab.onclick=()=>{
-      modal.querySelectorAll('.vb-tabs .vb-tab').forEach(x=>x.classList.remove('active'));
-      tab.classList.add('active');
-      activeTab=tab.dataset.tab;
-      render();
-    };
-  });
-
-  fab.onclick=()=>{modal.classList.add('open'); render();};
-  $('#vb-close').onclick=()=>modal.classList.remove('open');
-  modal.onclick=(e)=>{if(e.target===modal) modal.classList.remove('open');};
+  const $=s=>modal.querySelector(s); const contentEl=$('#vb-content'); const tabsEl=$('#vb-tabs'); let activeTab='gallery'; let activeGalleryIdx=0; let activePlan='basement';
+  function renderTabs(){t=i18n[langCode]; fab.innerHTML=`<span>💎</span> ${t.btn}`; $('#vb-title').textContent=t.title; $('#vb-sub').textContent=t.subtitle; tabsEl.innerHTML=`<div class="vb-tab ${activeTab==='gallery'?'active':''}" data-tab="gallery">${t.gallery}</div><div class="vb-tab ${activeTab==='plans'?'active':''}" data-tab="plans">${t.plans}</div><div class="vb-tab ${activeTab==='price'?'active':''}" data-tab="price">${t.price}</div><div class="vb-tab ${activeTab==='location'?'active':''}" data-tab="location">${t.loc}</div><div class="vb-tab ${activeTab==='book'?'active':''}" data-tab="book">${t.book}</div>`; tabsEl.querySelectorAll('.vb-tab').forEach(tab=>{tab.onclick=()=>{activeTab=tab.dataset.tab; renderTabs(); render();};}); modal.querySelectorAll('#vb-lang-switch button').forEach(b=>{b.classList.toggle('active', b.dataset.l===langCode); b.onclick=()=>{langCode=b.dataset.l; renderTabs(); render();};});}
+  function render(){if(activeTab==='gallery'){contentEl.innerHTML=`<div class="vb-gallery" id="vb-thumbs">${VILLA.gallery.map((u,i)=>`<img src="${u}" data-i="${i}" class="${i===activeGalleryIdx?'active':''}" loading="lazy">`).join('')}</div><div style="font-size:11px;color:#64748b;margin:8px 0">Premium renders • ${activeGalleryIdx+1}/5 • Direct, no redirects</div><input class="vb-input" id="vb-name" placeholder="${t.name}"><input class="vb-input" id="vb-phone" placeholder="${t.phone}"><textarea class="vb-input" id="vb-msg" rows="2" placeholder="${t.msg}"></textarea><button class="vb-send" id="vb-send-btn">${t.send}</button><div id="vb-status" style="font-size:12px;color:#16a34a;margin-top:8px;display:none"></div>`; contentEl.querySelectorAll('#vb-thumbs img').forEach(img=>{img.onclick=()=>{activeGalleryIdx=parseInt(img.dataset.i); $('#vb-hero-img').src=VILLA.gallery[activeGalleryIdx]; render();};}); bindSend();} else if(activeTab==='plans'){contentEl.innerHTML=`<div style="display:flex;gap:6px;margin-bottom:10px"><button class="vb-tab ${activePlan==='basement'?'active':''}" data-plan="basement">Basement -1</button><button class="vb-tab ${activePlan==='ground'?'active':''}" data-plan="ground">Ground</button><button class="vb-tab ${activePlan==='first'?'active':''}" data-plan="first">First</button></div><img class="vb-plan-img" id="vb-plan-img" src="${VILLA.plans[activePlan]}" alt="plan"><div style="font-size:11px;color:#64748b;margin-top:8px">Architect plans displayed directly — no site link</div>`; contentEl.querySelectorAll('[data-plan]').forEach(b=>{b.onclick=()=>{activePlan=b.dataset.plan; render();};});} else if(activeTab==='price'){contentEl.innerHTML=`<div class="vb-h">${t.price_h}</div><div class="vb-txt">${t.price_text}</div><div style="margin-top:12px"><button class="vb-send" id="vb-to-book">${t.book}</button></div>`; document.getElementById('vb-to-book').onclick=()=>{activeTab='book'; renderTabs(); render();};} else if(activeTab==='location'){contentEl.innerHTML=`<div class="vb-h">${t.loc_h}</div><div class="vb-txt">${t.loc_text}</div><div style="margin-top:10px"><iframe width="100%" height="220" style="border:0;border-radius:12px" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.16%2C38.54%2C-0.10%2C38.58&layer=mapnik&marker=38.56%2C-0.13"></iframe></div>`;} else if(activeTab==='book'){contentEl.innerHTML=`<div class="vb-h">${t.book_h}</div><input class="vb-input" id="vb-name" placeholder="${t.name}"><input class="vb-input" id="vb-phone" placeholder="${t.phone}"><input class="vb-input" type="text" id="vb-date" placeholder="${t.date} (e.g. Sep 25, 17:00)"><textarea class="vb-input" id="vb-msg" rows="3" placeholder="${t.msg}"></textarea><button class="vb-send" id="vb-send-btn">${t.send}</button><div id="vb-status" style="font-size:12px;color:#16a34a;margin-top:8px;display:none"></div>`; bindSend();}}
+  function bindSend(){const btn=document.getElementById('vb-send-btn'); if(!btn) return; btn.onclick=async()=>{const payload={name:document.getElementById('vb-name')?.value||'Guest', phone:document.getElementById('vb-phone')?.value||'', message:document.getElementById('vb-msg')?.value||`Interest: ${activeTab}`, booking_date:document.getElementById('vb-date')?.value||'', lang:langCode, villa_id:'residence', page_url:location.href, session_id:localStorage.getItem('villas_session')||Math.random().toString(36).slice(2,8)}; localStorage.setItem('villas_session', payload.session_id); try{await fetch(`${API}/api/contact`,{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)}); const st=document.getElementById('vb-status'); st.style.display='block'; st.textContent=t.sent; btn.textContent='✅ Sent';}catch(e){alert('Error, try again');}};}
+  fab.onclick=()=>{modal.classList.add('open'); renderTabs(); render();}; $('#vb-close').onclick=()=>modal.classList.remove('open'); modal.onclick=(e)=>{if(e.target===modal) modal.classList.remove('open');};
 })();

@@ -1,3 +1,4 @@
+
 import os, uuid, json, pathlib
 from fastapi import FastAPI, Request, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
@@ -5,9 +6,9 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 
 load_dotenv()
-from bot import bot, handle_webhook_update, notify_admin, VILLA
+from bot import bot, handle_webhook_update, notify_admin, VILLA, TEXTS
 
-app = FastAPI(title="Villas Benidorm - Real Renders API")
+app = FastAPI(title="Villas Benidorm - Premium API v2")
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,22 +23,31 @@ class ContactRequest(BaseModel):
     phone: str = ""
     email: str = ""
     message: str
-    lang: str = "ru"
+    lang: str = "en"
     villa_id: str = "residence"
     page_url: str = ""
     session_id: str = ""
     honeypot: str = ""
+    booking_date: str = ""
 
 STORAGE = pathlib.Path("/tmp/villas_chats")
 STORAGE.mkdir(parents=True, exist_ok=True)
 
+VILLA_FULL = {
+    **VILLA,
+    "price": {"en": "€2,450,000 (VAT not included)", "es": "2.450.000 € (IVA no incluido)", "ru": "€2 450 000 (без НДС)"},
+    "specs": {"en": "465 m² built / 342 m² useful / 1,200 m² plot / 4 bed / 5 bath / Infinity pool 14m / Smart Home Grenton / A+", "es": "465 m² construidos / 342 m² útiles / 1.200 m² parcela / 4 dorm / 5 baños / Piscina infinita 14m / Casa inteligente Grenton / A+", "ru": "465 м² построено / 342 м² полезной / 1 200 м² участок / 4 спальни / 5 ванных / Бассейн 14м / Умный дом Grenton / A+"},
+    "location": {"en": "Finestrat-Benidorm, Costa Blanca — hilltop, 1.2km to Levante Beach, 45min to Alicante Airport", "es": "Finestrat-Benidorm, Costa Blanca — en colina, 1,2km a Playa Levante, 45min a Aeropuerto Alicante", "ru": "Финестрат-Бенидорм, Коста-Бланка — на холме, 1,2км до пляжа Леванте, 45мин до аэропорта Аликанте"},
+    "details": TEXTS
+}
+
 @app.get("/")
 async def root():
-    return {"status": "ok", "villa": VILLA}
+    return {"status": "ok", "version": "v2-premium", "villa": VILLA_FULL}
 
 @app.get("/api/villas")
 async def get_villas():
-    return {"villas": [VILLA]}
+    return {"villas": [VILLA_FULL]}
 
 @app.get("/api/villa/{villa_id}/gallery")
 async def gallery(villa_id: str):
@@ -46,6 +56,11 @@ async def gallery(villa_id: str):
 @app.get("/api/villa/{villa_id}/plans")
 async def plans(villa_id: str):
     return VILLA["plans"]
+
+@app.get("/api/villa/{villa_id}/info")
+async def villa_info(villa_id: str, lang: str = "en"):
+    l = lang if lang in ["en","es","ru"] else "en"
+    return {"price": VILLA_FULL["price"][l], "specs": VILLA_FULL["specs"][l], "location": VILLA_FULL["location"][l], "gallery": VILLA["gallery"], "plans": VILLA["plans"], "texts": TEXTS[l]}
 
 @app.post("/api/contact")
 async def contact(req: ContactRequest, background_tasks: BackgroundTasks):
@@ -58,7 +73,7 @@ async def contact(req: ContactRequest, background_tasks: BackgroundTasks):
     if path.exists():
         try: history = json.loads(path.read_text(encoding='utf-8'))
         except: history = []
-    history.append({"from_admin": False, "text": req.message, "name": req.name, "timestamp": "now"})
+    history.append({"from_admin": False, "text": req.message, "name": req.name, "phone": req.phone, "booking_date": req.booking_date, "timestamp": "now", "lang": req.lang})
     path.write_text(json.dumps(history, ensure_ascii=False), encoding='utf-8')
     background_tasks.add_task(notify_admin, req.model_dump())
     return {"ok": True, "session_id": session_id}
