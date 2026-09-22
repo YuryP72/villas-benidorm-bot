@@ -15,6 +15,7 @@ VILLAS = {
     "villa01": {
         "id": "villa01",
         "name": {"en": "VILLA 01", "es": "VILLA 01", "ru": "VILLA 01"},
+        "full_name": {"en": "VILLA 01 — Premium", "es": "VILLA 01 — Premium", "ru": "VILLA 01 — Premium"},
         "built": "470 M²", "beds": "5 BED",
         "beds_detail": {"en": "5 Bedrooms / 5 Bathrooms", "es": "5 Dormitorios / 5 Baños", "ru": "5 Спален / 5 Ванных"},
         "price": "€2,725,000",
@@ -23,6 +24,8 @@ VILLAS = {
             "https://villas-benidorm.com/renders/residence.jpg",
             "https://villas-benidorm.com/renders/modern_villa_sunset.jpg",
             "https://villas-benidorm.com/renders/modern_villa_forest_reflection.jpg",
+            "https://villas-benidorm.com/renders/modern_villa_pool_after_dark.jpg",
+            "https://villas-benidorm.com/renders/golden_evening_living_room.jpg",
         ],
         "plans": {
             "basement": "https://villas-benidorm.com/renders/plans/floor-1.png",
@@ -34,6 +37,7 @@ VILLAS = {
     "villa02": {
         "id": "villa02",
         "name": {"en": "VILLA 02", "es": "VILLA 02", "ru": "VILLA 02"},
+        "full_name": {"en": "VILLA 02 — Premium", "es": "VILLA 02 — Premium", "ru": "VILLA 02 — Premium"},
         "built": "470 M²", "beds": "5 BED",
         "beds_detail": {"en": "5 Bedrooms / 5 Bathrooms", "es": "5 Dormitorios / 5 Baños", "ru": "5 Спален / 5 Ванных"},
         "price": "€2,885,000",
@@ -42,6 +46,8 @@ VILLAS = {
             "https://villas-benidorm.com/renders/modern_villa_sunset.jpg",
             "https://villas-benidorm.com/renders/modern_villa_forest_reflection.jpg",
             "https://villas-benidorm.com/renders/modern_villa_pool_after_dark.jpg",
+            "https://villas-benidorm.com/renders/golden_evening_living_room.jpg",
+            "https://villas-benidorm.com/renders/residence.jpg",
         ],
         "plans": {
             "basement": "https://villas-benidorm.com/renders/plans/floor-1.png",
@@ -53,6 +59,7 @@ VILLAS = {
     "villa03": {
         "id": "villa03",
         "name": {"en": "VILLA 03", "es": "VILLA 03", "ru": "VILLA 03"},
+        "full_name": {"en": "VILLA 03 — Premium", "es": "VILLA 03 — Premium", "ru": "VILLA 03 — Premium"},
         "built": "470 M²", "beds": "5 BED",
         "beds_detail": {"en": "5 Bedrooms / 5 Bathrooms", "es": "5 Dormitorios / 5 Baños", "ru": "5 Спален / 5 Ванных"},
         "price": "€2,835,000",
@@ -61,6 +68,8 @@ VILLAS = {
             "https://villas-benidorm.com/renders/modern_villa_forest_reflection.jpg",
             "https://villas-benidorm.com/renders/modern_villa_pool_after_dark.jpg",
             "https://villas-benidorm.com/renders/golden_evening_living_room.jpg",
+            "https://villas-benidorm.com/renders/residence.jpg",
+            "https://villas-benidorm.com/renders/modern_villa_sunset.jpg",
         ],
         "plans": {
             "basement": "https://villas-benidorm.com/renders/plans/floor-1.png",
@@ -83,113 +92,113 @@ class BookingForm(StatesGroup):
 
 TEXTS = {
     "en": {
-        "welcome_title": "🏡 Villas Benidorm — villas-benidorm.com\n\n3 exclusive villas — 470 M² • 5 BED each.\nPrices as on website.",
-        "choose_lang": "🌐 Choose language / Elige idioma / Выберите язык:",
-        "lang_en": "🇬🇧 English",
-        "lang_es": "🇪🇸 Español",
-        "lang_ru": "🇷🇺 Русский",
-        "lang_set": "✅ Language: English",
-        "choose_villa": "🏘️ Choose villa — prices as on site:\n\nVILLA 01 — €2,725,000 — 470 M² • 5 BED\nVILLA 02 — €2,885,000 — 470 M² • 5 BED\nVILLA 03 — €2,835,000 — 470 M² • 5 BED\n\n📅 Delivery: 2027",
-        "main_menu": "{villa_name} — {price}\n470 M² • 5 BED • Delivery 2027",
-        "btn_price": "💰 Price",
-        "btn_location": "📍 Location",
-        "btn_plans": "📐 Plans",
-        "btn_gallery": "🖼️ Gallery",
-        "btn_book": "📅 Book Viewing",
-        "btn_lang": "🌐 Language",
-        "btn_villas": "🏘️ All 3 Villas",
-        "price_title": "{villa_name} — {price}",
-        "price_text": "{villa_name}\nPrice: {price}\nBuilt: {built} • {beds_detail}\nPlot: sea view, infinity pool 14m\nSmart Home, A+ energy\nDelivery: {delivery}",
-        "location_title": "📍 Location",
-        "location_text": "📍 Finestrat — Benidorm, Costa Blanca\n1.2 km to Levante Beach\n3 min to Finestrat center\n45 min to Alicante Airport",
-        "plans_title": "📐 {villa_name} — Plans",
-        "plans_text": "📐 Floor plans:",
-        "gallery_title": "🖼️ {villa_name} — Gallery",
-        "book_title": "📅 Book {villa_name}",
-        "book_start": "📅 Viewing {villa_name} {price}\n\n👤 Your name?",
-        "book_phone": "Thanks {name}! 📞 Phone / WhatsApp:",
-        "book_date": "📅 Preferred date & time?",
-        "book_comment": "💬 Preferences? (EN/ES/RU)",
-        "book_confirm_user": "✅ Thank you {name}!\n\nRequest for {villa_name} {price} sent.\nDate: {date}\nPhone: {phone}\nManager will contact in 30 min.",
-        "book_admin": "🔥 NEW BOOKING",
-        "new_lead": "🔥 New lead",
-        "reply_hint": "💬 Reply to answer",
-        "back": "⬅️ Back",
-        "menu_hint": "👇 Choose:",
-        "villas_list": "🏘️ 3 Villas from villas-benidorm.com:"
+        "welcome_title": '🏡 Villas Benidorm — villas-benidorm.com\n\n3 exclusive villas — 470 M² • 5 BED each.\nPrices as on website.',
+        "choose_lang": '🌐 Choose language / Elige idioma / Выберите язык:',
+        "lang_en": '🇬🇧 English',
+        "lang_es": '🇪🇸 Español',
+        "lang_ru": '🇷🇺 Русский',
+        "lang_set": '✅ Language: English',
+        "choose_villa": '🏘️ Choose villa — prices as on site:\n\nVILLA 01 — €2,725,000 — 470 M² • 5 BED\nVILLA 02 — €2,885,000 — 470 M² • 5 BED\nVILLA 03 — €2,835,000 — 470 M² • 5 BED\n\n📅 Delivery: 2027',
+        "main_menu": '{villa_name} — {price}\n470 M² • 5 BED • Delivery 2027',
+        "btn_price": '💰 Price',
+        "btn_location": '📍 Location',
+        "btn_plans": '📐 Plans',
+        "btn_gallery": '🖼️ Gallery',
+        "btn_book": '📅 Book Viewing',
+        "btn_lang": '🌐 Language',
+        "btn_villas": '🏘️ All 3 Villas',
+        "price_title": '{villa_name} — {price}',
+        "price_text": '{villa_name}\nPrice: {price}\nBuilt: {built} • {beds_detail}\nPlot: sea view, infinity pool 14m\nSmart Home, A+ energy\nDelivery: {delivery}',
+        "location_title": '📍 Location',
+        "location_text": '📍 Finestrat — Benidorm, Costa Blanca\n1.2 km to Levante Beach\n3 min to Finestrat center\n45 min to Alicante Airport',
+        "plans_title": '📐 {villa_name} — Plans',
+        "plans_text": '📐 Floor plans:',
+        "gallery_title": '🖼️ {villa_name} — Gallery',
+        "book_title": '📅 Book {villa_name}',
+        "book_start": '📅 Viewing {villa_name} {price}\n\n👤 Your name?',
+        "book_phone": 'Thanks {name}! 📞 Phone / WhatsApp:',
+        "book_date": '📅 Preferred date & time?',
+        "book_comment": '💬 Preferences? (EN/ES/RU)',
+        "book_confirm_user": '✅ Thank you {name}!\n\nRequest for {villa_name} {price} sent.\nDate: {date}\nPhone: {phone}\nManager will contact in 30 min.',
+        "book_admin": '🔥 NEW BOOKING',
+        "new_lead": '🔥 New lead',
+        "reply_hint": '💬 Reply to answer',
+        "back": '⬅️ Back',
+        "menu_hint": '👇 Choose:',
+        "villas_list": '🏘️ 3 Villas from villas-benidorm.com:',
     },
     "es": {
-        "welcome_title": "🏡 Villas Benidorm — villas-benidorm.com\n\n3 villas exclusivas — 470 M² • 5 DORM",
-        "choose_lang": "🌐 Elige tu idioma:",
-        "lang_en": "🇬🇧 English",
-        "lang_es": "🇪🇸 Español",
-        "lang_ru": "🇷🇺 Русский",
-        "lang_set": "✅ Idioma: Español",
-        "choose_villa": "🏘️ Elige villa:\n\nVILLA 01 — €2,725,000\nVILLA 02 — €2,885,000\nVILLA 03 — €2,835,000\n\n📅 Entrega: 2027",
-        "main_menu": "{villa_name} — {price}\n470 M² • 5 DORM • Entrega 2027",
-        "btn_price": "💰 Precio",
-        "btn_location": "📍 Ubicacion",
-        "btn_plans": "📐 Planos",
-        "btn_gallery": "🖼️ Galeria",
-        "btn_book": "📅 Reservar",
-        "btn_lang": "🌐 Idioma",
-        "btn_villas": "🏘️ Las 3 Villas",
-        "price_title": "{villa_name} — {price}",
-        "price_text": "{villa_name}\nPrecio: {price}\n{built} • {beds_detail}\nEntrega: {delivery}",
-        "location_title": "📍 Ubicacion",
-        "location_text": "📍 Finestrat — Benidorm\n1,2 km a Playa Levante\n45 min a Alicante",
-        "plans_title": "📐 {villa_name}",
-        "plans_text": "📐 Planos:",
-        "gallery_title": "🖼️ {villa_name}",
-        "book_title": "📅 Reservar {villa_name}",
-        "book_start": "📅 Visita {villa_name} {price}\n\n👤 Nombre?",
-        "book_phone": "📞 Telefono:",
-        "book_date": "📅 Fecha?",
-        "book_comment": "💬 Preferencias?",
-        "book_confirm_user": "✅ Gracias {name}!\nSolicitud {villa_name} {price} enviada.\nFecha: {date}\nTel: {phone}",
-        "book_admin": "🔥 NUEVA RESERVA",
-        "new_lead": "🔥 Nuevo lead",
-        "reply_hint": "💬 Responde",
-        "back": "⬅️ Volver",
-        "menu_hint": "👇 Elige:",
-        "villas_list": "🏘️ 3 Villas:"
+        "welcome_title": '🏡 Villas Benidorm — villas-benidorm.com\n\n3 villas exclusivas — 470 M² • 5 DORM',
+        "choose_lang": '🌐 Elige tu idioma:',
+        "lang_en": '🇬🇧 English',
+        "lang_es": '🇪🇸 Español',
+        "lang_ru": '🇷🇺 Русский',
+        "lang_set": '✅ Idioma: Español',
+        "choose_villa": '🏘️ Elige villa:\n\nVILLA 01 — €2,725,000\nVILLA 02 — €2,885,000\nVILLA 03 — €2,835,000\n\n📅 Entrega: 2027',
+        "main_menu": '{villa_name} — {price}\n470 M² • 5 DORM • Entrega 2027',
+        "btn_price": '💰 Precio',
+        "btn_location": '📍 Ubicacion',
+        "btn_plans": '📐 Planos',
+        "btn_gallery": '🖼️ Galeria',
+        "btn_book": '📅 Reservar',
+        "btn_lang": '🌐 Idioma',
+        "btn_villas": '🏘️ Las 3 Villas',
+        "price_title": '{villa_name} — {price}',
+        "price_text": '{villa_name}\nPrecio: {price}\n{built} • {beds_detail}\nEntrega: {delivery}',
+        "location_title": '📍 Ubicacion',
+        "location_text": '📍 Finestrat — Benidorm\n1,2 km a Playa Levante\n45 min a Alicante',
+        "plans_title": '📐 {villa_name}',
+        "plans_text": '📐 Planos:',
+        "gallery_title": '🖼️ {villa_name}',
+        "book_title": '📅 Reservar {villa_name}',
+        "book_start": '📅 Visita {villa_name} {price}\n\n👤 Nombre?',
+        "book_phone": '📞 Telefono:',
+        "book_date": '📅 Fecha?',
+        "book_comment": '💬 Preferencias?',
+        "book_confirm_user": '✅ Gracias {name}!\nSolicitud {villa_name} {price} enviada.\nFecha: {date}\nTel: {phone}',
+        "book_admin": '🔥 NUEVA RESERVA',
+        "new_lead": '🔥 Nuevo lead',
+        "reply_hint": '💬 Responde',
+        "back": '⬅️ Volver',
+        "menu_hint": '👇 Elige:',
+        "villas_list": '🏘️ 3 Villas:',
     },
     "ru": {
-        "welcome_title": "🏡 Villas Benidorm — villas-benidorm.com\n\n3 эксклюзивные виллы — 470 M² • 5 спален",
-        "choose_lang": "🌐 Выберите язык:",
-        "lang_en": "🇬🇧 English",
-        "lang_es": "🇪🇸 Español",
-        "lang_ru": "🇷🇺 Русский",
-        "lang_set": "✅ Язык: Русский",
-        "choose_villa": "🏘️ Выберите виллу:\n\nVILLA 01 — €2,725,000\nVILLA 02 — €2,885,000\nVILLA 03 — €2,835,000\n\n📅 Сдача: 2027",
-        "main_menu": "{villa_name} — {price}\n470 M² • 5 спален • Сдача 2027",
-        "btn_price": "💰 Цена",
-        "btn_location": "📍 Локация",
-        "btn_plans": "📐 Планы",
-        "btn_gallery": "🖼️ Галерея",
-        "btn_book": "📅 Запись",
-        "btn_lang": "🌐 Язык",
-        "btn_villas": "🏘️ Все 3 виллы",
-        "price_title": "{villa_name} — {price}",
-        "price_text": "{villa_name}\nЦена: {price}\n{built} • {beds_detail}\nСдача: {delivery}",
-        "location_title": "📍 Расположение",
-        "location_text": "📍 Финестрат — Бенидорм\n1,2 км до пляжа\n45 мин до Аликанте\nСдача 2027",
-        "plans_title": "📐 {villa_name}",
-        "plans_text": "📐 Планировки:",
-        "gallery_title": "🖼️ {villa_name}",
-        "book_title": "📅 Запись {villa_name}",
-        "book_start": "📅 Запись на {villa_name} {price}\n\n👤 Имя?",
-        "book_phone": "📞 Телефон:",
-        "book_date": "📅 Дата и время?",
-        "book_comment": "💬 Пожелания?",
-        "book_confirm_user": "✅ Спасибо {name}!\nЗаявка {villa_name} {price} отправлена.\nДата: {date}\nТел: {phone}",
-        "book_admin": "🔥 НОВАЯ ЗАПИСЬ",
-        "new_lead": "🔥 Новый лид",
-        "reply_hint": "💬 Ответь Reply",
-        "back": "⬅️ Назад",
-        "menu_hint": "👇 Выберите:",
-        "villas_list": "🏘️ 3 виллы:"
-    }
+        "welcome_title": '🏡 Villas Benidorm — villas-benidorm.com\n\n3 эксклюзивные виллы — 470 M² • 5 спален',
+        "choose_lang": '🌐 Выберите язык:',
+        "lang_en": '🇬🇧 English',
+        "lang_es": '🇪🇸 Español',
+        "lang_ru": '🇷🇺 Русский',
+        "lang_set": '✅ Язык: Русский',
+        "choose_villa": '🏘️ Выберите виллу:\n\nVILLA 01 — €2,725,000\nVILLA 02 — €2,885,000\nVILLA 03 — €2,835,000\n\n📅 Сдача: 2027',
+        "main_menu": '{villa_name} — {price}\n470 M² • 5 спален • Сдача 2027',
+        "btn_price": '💰 Цена',
+        "btn_location": '📍 Локация',
+        "btn_plans": '📐 Планы',
+        "btn_gallery": '🖼️ Галерея',
+        "btn_book": '📅 Запись',
+        "btn_lang": '🌐 Язык',
+        "btn_villas": '🏘️ Все 3 виллы',
+        "price_title": '{villa_name} — {price}',
+        "price_text": '{villa_name}\nЦена: {price}\n{built} • {beds_detail}\nСдача: {delivery}',
+        "location_title": '📍 Расположение',
+        "location_text": '📍 Финестрат — Бенидорм\n1,2 км до пляжа\n45 мин до Аликанте\nСдача 2027',
+        "plans_title": '📐 {villa_name}',
+        "plans_text": '📐 Планировки:',
+        "gallery_title": '🖼️ {villa_name}',
+        "book_title": '📅 Запись {villa_name}',
+        "book_start": '📅 Запись на {villa_name} {price}\n\n👤 Имя?',
+        "book_phone": '📞 Телефон:',
+        "book_date": '📅 Дата и время?',
+        "book_comment": '💬 Пожелания?',
+        "book_confirm_user": '✅ Спасибо {name}!\nЗаявка {villa_name} {price} отправлена.\nДата: {date}\nТел: {phone}',
+        "book_admin": '🔥 НОВАЯ ЗАПИСЬ',
+        "new_lead": '🔥 Новый лид',
+        "reply_hint": '💬 Ответь Reply',
+        "back": '⬅️ Назад',
+        "menu_hint": '👇 Выберите:',
+        "villas_list": '🏘️ 3 виллы:',
+    },
 }
 
 def get_lang(uid: int) -> str:
@@ -209,7 +218,7 @@ def villas_kb(lang: str, current_villa_id: str = None):
     rows = []
     for vid in ["villa01", "villa02", "villa03"]:
         v = VILLAS[vid]
-        rows.append([InlineKeyboardButton(text=f"{v['name'][lang]} — {v['price']} — {v['built']}", callback_data=f"villa_{vid}")])
+        rows.append([InlineKeyboardButton(text=f"{v['name'][lang]} - {v['price']} - {v['built']}", callback_data=f"villa_{vid}")])
     if current_villa_id and current_villa_id in VILLAS:
         v = VILLAS[current_villa_id]
         back_text = TEXTS[lang]["back"] + f" to {v['name'][lang]}"
@@ -233,6 +242,7 @@ def back_to_villa_kb(lang: str, villa_id: str):
     t = TEXTS[lang]
     return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=t["back"], callback_data=f"villa_{villa_id}")]])
 
+
 async def notify_admin(lead: dict):
     lang = lead.get("lang", "en")
     t = TEXTS.get(lang, TEXTS["en"])
@@ -241,26 +251,29 @@ async def notify_admin(lead: dict):
     is_booking = "booking_date" in lead and lead.get("booking_date")
     villa_name = v["name"].get(lang, v["name"]["en"])
     if is_booking:
-        text = f"{t['book_admin']} {villa_name} {v['price']}\nVilla: {villa_id} | {v['price']}\nLang: {lead.get('lang')}\nName: {lead.get('name')} | Phone: {lead.get('phone')}\nDate: {lead.get('booking_date')}\nMsg: {lead.get('message')}\nID: {lead.get('session_id')}"
+        text = f"{t['book_admin']} {villa_name} {v['price']} | Villa: {villa_id} | Lang: {lead.get('lang')} | Name: {lead.get('name')} | Phone: {lead.get('phone')} | Date: {lead.get('booking_date')} | Msg: {lead.get('message')} | ID: {lead.get('session_id')}"
     else:
-        text = f"{t['new_lead']} {villa_name} {v['price']}\nVilla: {villa_id}\nLang: {lead.get('lang')}\nName: {lead.get('name')} | Phone: {lead.get('phone')}\nMsg: {lead.get('message')}\nID: {lead.get('session_id')}"
-    admin_id_raw = os.getenv("ADMIN_CHAT_ID")
+        text = f"{t['new_lead']} {villa_name} {v['price']} | Villa: {villa_id} | Lang: {lead.get('lang')} | Name: {lead.get('name')} | Phone: {lead.get('phone')} | Msg: {lead.get('message')} | ID: {lead.get('session_id')}"
+    admin_id_raw = os.getenv("ADMIN_CHAT_ID", "")
     if not admin_id_raw:
         logging.error("ADMIN_CHAT_ID not set!")
         return None
-    try:
-        admin_id = int(str(admin_id_raw).strip())
-    except Exception:
-        admin_id = admin_id_raw
-    logging.info(f"notify_admin trying {admin_id} lead {lead.get('session_id')}")
-    try:
-        msg = await bot.send_message(chat_id=admin_id, text=text)
-        SESSIONS[msg.message_id] = lead
-        SESSIONS[lead.get('session_id')] = lead
-        return msg.message_id
-    except Exception as e:
-        logging.error(f"notify_admin FAILED for {admin_id}: {e}")
-        return None
+    admin_ids = [x.strip() for x in str(admin_id_raw).split(",") if x.strip()]
+    sent = []
+    for aid_raw in admin_ids:
+        try:
+            aid = int(aid_raw)
+        except:
+            aid = aid_raw
+        try:
+            msg = await bot.send_message(chat_id=aid, text=text)
+            SESSIONS[msg.message_id] = lead
+            SESSIONS[lead.get("session_id")] = lead
+            sent.append(msg.message_id)
+        except Exception as e:
+            logging.error(f"notify_admin FAILED for {aid}: {e}")
+    return sent[0] if sent else None
+
 
 @dp.message(Command("start", "villa", "lang"))
 async def cmd_start(m: types.Message, state: FSMContext):
@@ -345,7 +358,7 @@ async def cb_plans(cb: types.CallbackQuery):
     await cb.message.answer(f"{t['plans_title'].format(villa_name=v['name'][lang])}\n\n{t['plans_text']}", parse_mode="Markdown")
     for k, url in v["plans"].items():
         try:
-            await cb.message.answer_photo(photo=url, caption=f"{k} - {v['name'][lang]} {v['price']}")
+            await cb.message.answer_photo(photo=url, caption=f"{k.title()} floor - {v['name'][lang]} {v['price']}")
         except Exception as e:
             logging.error(f"plan photo error {e}")
     await cb.message.answer(t["menu_hint"], reply_markup=main_menu_kb(lang, villa_id))
@@ -379,7 +392,7 @@ async def cb_book(cb: types.CallbackQuery, state: FSMContext):
     t = TEXTS[lang]
     await state.set_state(BookingForm.name)
     await state.update_data(villa_id=villa_id)
-    await cb.message.answer(f"{t['book_title'].format(villa_name=v['name'][lang])}\n\n{t['book_start'].format(villa_name=v['name'][lang], price=v['price'])}", parse_mode="Markdown")
+    await cb.message.answer(t['book_start'].format(villa_name=v['name'][lang], price=v['price']), parse_mode="Markdown")
 
 @dp.message(BookingForm.name)
 async def book_name(m: types.Message, state: FSMContext):
